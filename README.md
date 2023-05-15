@@ -12,7 +12,7 @@ This project provides a simple user interface for submitting PFBs to the Celesti
 
 1. Install the required packages.
 2. Start the server by running `python app.py`.
-3. Open a web browser and go to `http://localhost:8000` (the port is set to 8000 but you can change it to any port in the code).
+3. Open a web browser and go to `http://localhost:8000` (the port is set to 8000 but you can change it to any port by modifying line 65 in the `app.py` code).
 4. The Celestia nodes need to be configured to be able to receive external PFB submissions. This can be done by adding `--gateway --gateway.addr {IP address or localhost} --gateway.port 26659` when starting the node.
 5. Once started, the UI looks like this (tested on a Macbook):<img width="1404" alt="UI screenshot" src="https://github.com/lampardlamps/celestia-PFB/assets/1702296/01bb5f0c-58fd-44ed-97ca-582d58a7bbe2"> The following values should be input by the user: namespace ID, data and URL (which should be the IP address of the Celestia server, including the correct port number), and after that, hit Submit button, and the reponse will be displayed by the box below the button.
 6. To get the namespaced share, input the block height returned by the previous step, and hit the 'Get namespaced share' button, and the received results will be displayed in the text box below. 
