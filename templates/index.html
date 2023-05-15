@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Celestia PFB Submission UI</title>
+    <!-- prepare the style of the webpage -->
+    <style>
+        body {
+            background-image: url("static/image.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+        }
+        .container {
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #ccc;
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f2f2f2;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            width: 70%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0062cc;
+        }
+        #pfb_output {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f2f2f2;
+            height: 120px;
+            overflow: auto;
+        }
+        #share_output {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f2f2f2;
+            height: 60px;
+            overflow: auto;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-row label {
+            margin-right: 10px;
+        }
+        .form-row input[type="text"] {
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Celestia PFB Submission UI</h1>
+        <form method="post" action="/submit">
+            <div class="form-row">
+                <label for="namespace_id">Namespace ID:</label>
+                <input type="text" id="namespace_id" name="namespace_id" value="0c204d39600fddd3" required>
+            </div>
+            <div class="form-row">
+                <label for="data">Data:</label>
+                <input type="text" id="data" name="data" value="f1f20ca8007e910a3bf8b2e61da0f26bca07ef78717a6ea54165f5" required>
+            </div>
+            <div class="form-row">
+                <label for="url">URL:</label>
+                <input type="text" id="url" name="url" value="http://localhost:26659" required>
+            </div>
+            <div class="form-row">
+                <button type="submit" name="submit" value="post">Submit</button>
+            </div>
+        </form>
+        <div id="pfb_output">
+            {% if pfb_output %}
+                {{ pfb_output }}
+            {% endif %}
+        </div>
+        <br>
+        <form method="post" action="/get_namespaced_share">
+            <input type="hidden" id="share_namespace_id" name="share_namespace_id" value="{{ request.form['namespace_id'] }}">
+            <input type="hidden" id="share_url" name="share_url" value="{{ request.form['url'] }}">
+            <div class="form-row">
+                <label for="height">Block Height:</label>
+                <input type="text" id="height" name="height" value="4249" required>
+            </div>
+            <div class="form-row">
+                <button type="submit" name="get_namespaced_share" value="post">Get Namespaced Share</button>
+            </div>
+        </form>
+        <div id="share_output">
+            {% if share_output %}
+                {{ share_output }}
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
